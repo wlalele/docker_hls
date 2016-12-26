@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check if th nginx.conf file exists
-if [ ! -f "nginx.conf" ]; then
+if [ ! -f "scripts/nginx.conf" ]; then
     echo "ERROR ! Nginx configuration file not found !"
     exit 1
 fi
@@ -34,7 +34,7 @@ rm -rf ffmpeg
 
 # Load Nginx config
 mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.original
-mv nginx.conf /usr/local/nginx/conf
+cp /scripts/nginx.conf /usr/local/nginx/conf
 
 # Start Nginx
 /usr/local/nginx/sbin/nginx

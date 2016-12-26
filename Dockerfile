@@ -10,8 +10,12 @@ RUN apt-get update
 RUN apt-get -y install build-essential libpcre3 libpcre3-dev libssl-dev git wget
 
 # Compile Nginx 1.11.5 with RTMP and Auth Modules (+ SSL and Debug)
-RUN echo ". /scripts/install_nginx.sh" >> /etc/bash.bashrc
-RUN bash ./scripts/install_nginx.sh
+RUN echo ". ./scripts/install_nginx.sh" >> /etc/bash.bashrc
+
+ADD scripts/install_nginx.sh /scripts/install_nginx.sh
+ADD scripts/nginx.conf /scripts/nginx.conf
+RUN ls
+RUN bash /scripts/install_nginx.sh
 
 # Change Nginx configuration
 # ...
