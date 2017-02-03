@@ -6,10 +6,6 @@ if [ ! -f "scripts/nginx.conf" ]; then
     exit 1
 fi
 
-# Dependencies
-apt-get update
-apt-get -y install build-essential libpcre3 libpcre3-dev libssl-dev git wget gcc
-
 # Compile Nginx with RTMP and Auth Modules (+ SSL and Debug)
 NGINX="nginx-1.11.5"
 wget https://nginx.org/download/$NGINX.tar.gz
@@ -23,18 +19,6 @@ cd ..
 rm -rf $NGINX*
 rm -rf nginx-rtmp-module
 
-# Compile ffmpeg and ffprobe
-git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
-cd ffmpeg
-./configure --disable-yasm
-make
-make install
-cd ..
-rm -rf ffmpeg
-
 # Load Nginx config
 mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.original
 cp /scripts/nginx.conf /usr/local/nginx/conf
-
-# Start Nginx
-/usr/local/nginx/sbin/nginx
